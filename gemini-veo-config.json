@@ -1,0 +1,331 @@
+{
+  "setup": {
+    "version": "1.0.0",
+    "description": "Gemini & Veo 3 Video Generation Configuration",
+    "lastUpdated": "2024"
+  },
+  "prerequisites": {
+    "framework": "Next.js 13+ (App Router)",
+    "react": "React 18+",
+    "account": "Google AI Studio account with Veo 3 access",
+    "apiKey": "API key from Google AI Studio"
+  },
+  "environmentVariables": {
+    "required": [
+      {
+        "key": "GEMINI_API_KEY",
+        "description": "Your Google AI Studio API key",
+        "example": "AIzaSyB5G4E3ziATLbXKZo8yWcbOwBjZC5itG6s"
+      }
+    ],
+    "optional": [
+      {
+        "key": "VIDEO_STORAGE_PATH",
+        "description": "Path to store generated videos",
+        "default": "public/videos"
+      }
+    ]
+  },
+  "fileStructure": {
+    "apiRoutes": [
+      "app/api/gemini/generate-and-save/route.ts",
+      "app/api/gemini/generate-hero-video/route.ts",
+      "app/api/gemini/poll-video/route.ts",
+      "app/api/gemini/poll-hero-video/route.ts",
+      "app/api/gemini/route.ts"
+    ],
+    "hooks": [
+      "hooks/useSavedVideo.ts",
+      "hooks/useHeroVideo.ts"
+    ],
+    "directories": [
+      "app/api/gemini",
+      "hooks",
+      "public/videos"
+    ]
+  },
+  "configuration": {
+    "videoPrompts": {
+      "hero": {
+        "description": "Prompt for hero section video",
+        "default": "A cinematic, high-quality video showcasing premium vehicles driving smoothly on a scenic highway during golden hour",
+        "customizable": true,
+        "location": "app/api/gemini/generate-hero-video/route.ts"
+      },
+      "general": {
+        "description": "Prompt for general video generation",
+        "default": "A high-quality cinematic video",
+        "customizable": true,
+        "location": "app/api/gemini/generate-and-save/route.ts"
+      }
+    },
+    "videoFilenames": {
+      "hero": {
+        "default": "hero-fleet-highway.mp4",
+        "customizable": true,
+        "location": "app/api/gemini/generate-hero-video/route.ts"
+      },
+      "general": {
+        "default": "innoson-g80-highway.mp4",
+        "customizable": true,
+        "location": "app/api/gemini/generate-and-save/route.ts"
+      }
+    },
+    "polling": {
+      "interval": 30000,
+      "unit": "milliseconds",
+      "maxPolls": 20,
+      "customizable": true,
+      "location": "hooks/useSavedVideo.ts and hooks/useHeroVideo.ts"
+    }
+  },
+  "apiEndpoints": {
+    "generateVideo": {
+      "method": "POST",
+      "path": "/api/gemini/generate-and-save",
+      "description": "Generate a general video",
+      "response": {
+        "processing": {
+          "status": "processing",
+          "operationId": "string",
+          "message": "Video generation in progress"
+        },
+        "exists": {
+          "status": "exists",
+          "videoUrl": "string",
+          "path": "string"
+        },
+        "error": {
+          "status": "error",
+          "error": "string",
+          "message": "string"
+        }
+      }
+    },
+    "checkVideo": {
+      "method": "GET",
+      "path": "/api/gemini/generate-and-save",
+      "description": "Check if video exists",
+      "response": {
+        "exists": {
+          "exists": true,
+          "videoUrl": "string",
+          "size": "number",
+          "created": "string"
+        },
+        "notExists": {
+          "exists": false
+        }
+      }
+    },
+    "pollVideo": {
+      "method": "GET",
+      "path": "/api/gemini/poll-video",
+      "queryParams": {
+        "operationId": "string (required)"
+      },
+      "description": "Poll video generation status",
+      "response": {
+        "processing": {
+          "status": "processing",
+          "message": "Video generation in progress..."
+        },
+        "completed": {
+          "status": "completed",
+          "videoUrl": "string",
+          "size": "number"
+        },
+        "error": {
+          "status": "error",
+          "error": "string"
+        }
+      }
+    },
+    "generateHeroVideo": {
+      "method": "POST",
+      "path": "/api/gemini/generate-hero-video",
+      "description": "Generate hero section video",
+      "response": "Same as generateVideo"
+    },
+    "checkHeroVideo": {
+      "method": "GET",
+      "path": "/api/gemini/generate-hero-video",
+      "description": "Check if hero video exists",
+      "response": "Same as checkVideo"
+    },
+    "pollHeroVideo": {
+      "method": "GET",
+      "path": "/api/gemini/poll-hero-video",
+      "description": "Poll hero video generation status",
+      "response": "Same as pollVideo"
+    }
+  },
+  "hooks": {
+    "useSavedVideo": {
+      "file": "hooks/useSavedVideo.ts",
+      "returns": {
+        "videoUrl": "string | undefined",
+        "exists": "boolean",
+        "loading": "boolean",
+        "error": "string | null",
+        "status": "string | null",
+        "generateVideo": "function"
+      },
+      "usage": "For general video generation"
+    },
+    "useHeroVideo": {
+      "file": "hooks/useHeroVideo.ts",
+      "returns": {
+        "videoUrl": "string | undefined",
+        "exists": "boolean",
+        "loading": "boolean",
+        "error": "string | null",
+        "status": "string | null",
+        "generateVideo": "function"
+      },
+      "usage": "For hero section video generation"
+    }
+  },
+  "features": {
+    "modelDiscovery": {
+      "description": "Automatically detects available Veo models",
+      "enabled": true
+    },
+    "multipleEndpoints": {
+      "description": "Tries different API endpoint formats automatically",
+      "enabled": true
+    },
+    "errorHandling": {
+      "description": "Graceful error handling with fallbacks",
+      "enabled": true
+    },
+    "polling": {
+      "description": "Automatic polling for video completion",
+      "enabled": true,
+      "configurable": true
+    },
+    "operationRecovery": {
+      "description": "Saves operation IDs for recovery",
+      "enabled": true,
+      "storage": "public/videos/operation-id.json"
+    }
+  },
+  "customization": {
+    "videoPrompts": {
+      "instructions": "Edit VIDEO_PROMPT or HERO_VIDEO_PROMPT constants in respective API route files",
+      "format": "Plain text description of desired video",
+      "tips": [
+        "Be specific about subject, location, time of day",
+        "Include camera movement preferences",
+        "Specify mood and style",
+        "Mention any special effects or details"
+      ]
+    },
+    "videoFilenames": {
+      "instructions": "Edit VIDEO_FILENAME constant in API route files",
+      "format": "filename.mp4",
+      "tips": [
+        "Use descriptive names",
+        "Include version numbers if needed",
+        "Keep names URL-friendly"
+      ]
+    },
+    "storagePath": {
+      "instructions": "Modify videosDir path in API route files",
+      "default": "public/videos",
+      "tips": [
+        "Ensure directory exists",
+        "Check write permissions",
+        "Consider using environment variable"
+      ]
+    },
+    "pollingInterval": {
+      "instructions": "Modify interval in hook files",
+      "default": 30000,
+      "unit": "milliseconds",
+      "tips": [
+        "30 seconds is recommended",
+        "Too frequent may hit rate limits",
+        "Too slow delays user feedback"
+      ]
+    }
+  },
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "issue": "models/veo-X.X-generate-001 is not found",
+        "solution": "Ensure Google AI Studio account has Veo 3 access",
+        "check": "Verify API key and account permissions"
+      },
+      {
+        "issue": "Operation not found during polling",
+        "solution": "Check operation ID format matches expected structure",
+        "check": "Review operation-id.json file"
+      },
+      {
+        "issue": "Video not downloading",
+        "solution": [
+          "Check API key is correct",
+          "Verify video URI is accessible",
+          "Check network requests in browser console"
+        ]
+      },
+      {
+        "issue": "Failed to parse JSON",
+        "solution": "API handles HTML error pages automatically",
+        "check": "Review actual error in response"
+      },
+      {
+        "issue": "Video generation times out",
+        "solution": [
+          "Increase maxPolls in hook",
+          "Check operation status manually",
+          "Verify API is responding"
+        ]
+      }
+    ]
+  },
+  "quickStart": {
+    "steps": [
+      "Create .env.local with GEMINI_API_KEY",
+      "Create app/api/gemini/ directory",
+      "Create hooks/ directory",
+      "Create public/videos/ directory",
+      "Copy API route files from GEMINI_VEO_SETUP.md",
+      "Copy hook files from GEMINI_VEO_SETUP.md",
+      "Customize video prompts",
+      "Customize video filenames",
+      "Import and use hooks in components",
+      "Test video generation"
+    ]
+  },
+  "examples": {
+    "simpleVideo": {
+      "description": "Basic video display component",
+      "file": "See GEMINI_VEO_SETUP.md Usage Examples section"
+    },
+    "heroSection": {
+      "description": "Hero section with video background",
+      "file": "See GEMINI_VEO_SETUP.md Usage Examples section"
+    },
+    "videoWithLoading": {
+      "description": "Video component with loading states",
+      "file": "See GEMINI_VEO_SETUP.md Usage Examples section"
+    }
+  },
+  "notes": [
+    "Videos are saved to public/videos/ by default",
+    "Operation IDs are stored in JSON files for recovery",
+    "System automatically detects available Veo models",
+    "Falls back gracefully if API is unavailable",
+    "Polls every 30 seconds by default (configurable)",
+    "All API routes are independent of UI components",
+    "Hooks are framework-agnostic (work with any React project)"
+  ],
+  "resources": {
+    "googleAIStudio": "https://aistudio.google.com/",
+    "geminiDocs": "https://ai.google.dev/docs",
+    "veo3Info": "https://deepmind.google/technologies/veo/"
+  }
+}
+

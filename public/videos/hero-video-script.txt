@@ -1,0 +1,57 @@
+HERO VIDEO PRODUCTION SCRIPT
+Generated for: A cinematic, high-quality video showcasing the Innoson Vehicle Manufacturing fleet of premium SUVs driving smoothly on a scenic African highway during golden hour. Multiple luxury vehicles (Innoson G80, G40, and G5T models) are visible, moving gracefully in formation. The scene captures the pride of African roads with smooth camera movements, showcasing the premium design, craftsmanship, and performance of the entire fleet. The golden hour lighting creates a warm, luxurious atmosphere, highlighting the vehicles' sleek lines and premium finishes. The highway stretches into the distance, with African landscape visible in the background.
+
+PROJECT OVERVIEW:
+- Duration: 10 seconds
+- Aspect Ratio: 16:9
+- Resolution: 1080p (1920x1080)
+- Frame Rate: 30fps
+- Style: Cinematic, Premium, Luxury, Fleet Showcase
+
+SHOT BREAKDOWN:
+
+SHOT 1 (0-3 seconds):
+- Wide establishing shot of scenic African highway during golden hour
+- Camera: Slow aerial dolly forward, elevated angle showing the road stretching into distance
+- Composition: Rule of thirds, highway leading into frame, African landscape visible
+- Lighting: Warm golden hour lighting, soft shadows, premium atmosphere
+- Action: Highway visible, setting the premium scene for the fleet
+
+SHOT 2 (3-7 seconds):
+- Medium-wide shot of Innoson fleet in formation (G80, G40, G5T)
+- Camera: Smooth tracking shot, following the fleet movement
+- Composition: Multiple vehicles visible, showcasing the entire fleet
+- Lighting: Golden hour highlights on vehicles' premium finishes
+- Action: Fleet moves gracefully in formation, showcasing premium design and performance
+
+SHOT 3 (7-10 seconds):
+- Dynamic shot showcasing individual vehicles and fleet together
+- Camera: Slow push-in on key design elements, then pull-back to show full fleet
+- Composition: Focus on premium details, then wide fleet view
+- Lighting: Dramatic golden hour lighting creating luxury atmosphere
+- Action: Highlighting craftsmanship, attention to detail, and the pride of African roads
+
+CAMERA MOVEMENTS:
+- Smooth, cinematic camera movements throughout
+- Aerial and ground-level perspectives
+- Professional dolly and tracking shots
+- Slow, deliberate pacing to emphasize luxury and fleet unity
+
+VISUAL ELEMENTS:
+- Multiple Innoson vehicle models (G80, G40, G5T) visible
+- Premium vehicle designs highlighted
+- Scenic African highway backdrop
+- Golden hour lighting creating warm, luxurious atmosphere
+- Smooth motion emphasizing vehicle performance and fleet coordination
+- Professional color grading for cinematic look
+
+TECHNICAL SPECIFICATIONS:
+- Resolution: 1080p (1920x1080)
+- Aspect Ratio: 16:9
+- Frame Rate: 30fps
+- Color Space: Rec. 709
+- Audio: Premium engine sounds, subtle ambient highway sounds, fleet coordination
+- Post-Production: Color grading for golden hour warmth, smooth transitions, fleet showcase
+
+NOTES:
+This script emphasizes the premium nature of the entire Innoson fleet while showcasing them on African roads, highlighting both the vehicles' luxury features and their connection to African pride and excellence. The fleet formation showcases the brand's comprehensive SUV collection.
