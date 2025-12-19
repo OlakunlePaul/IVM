@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { GoogleGenerativeAI } from '@google/generative-ai'
 
 export const dynamic = 'force-dynamic'
 
@@ -14,14 +13,34 @@ export async function GET() {
       }, { status: 500 })
     }
 
-    // Test basic Gemini API connection
-    const genAI = new GoogleGenerativeAI(apiKey)
-    // Use gemini-1.5-flash or gemini-1.5-pro which are the current available models
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+    // Test basic Gemini API connection using direct REST API
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`
+    
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        contents: [{
+          parts: [{
+            text: 'Say "API is working" if you can read this.'
+          }]
+        }]
+      }),
+    })
 
-    const result = await model.generateContent('Say "API is working" if you can read this.')
-    const response = await result.response
-    const text = response.text()
+    if (!response.ok) {
+      const errorText = await response.text()
+      return NextResponse.json({
+        status: 'error',
+        message: `API request failed: ${response.status} ${response.statusText}`,
+        details: errorText.substring(0, 500),
+      }, { status: response.status })
+    }
+
+    const data = await response.json()
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response text found'
 
     return NextResponse.json({
       status: 'success',
