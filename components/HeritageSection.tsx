@@ -38,6 +38,12 @@ const HeritageSection: React.FC = () => {
     restDelta: 0.001
   })
 
+  // Create transforms for each image individually (Hooks must be called unconditionally)
+  const imageTransform0 = useTransform(smoothProgress, [0, 1], ["-10%", "10%"])
+  const imageTransform1 = useTransform(smoothProgress, [0, 1], ["10%", "-10%"])
+  const imageTransform2 = useTransform(smoothProgress, [0, 1], ["-10%", "10%"])
+  const imageTransforms = [imageTransform0, imageTransform1, imageTransform2]
+
   return (
     <section 
       ref={containerRef}
@@ -75,14 +81,13 @@ const HeritageSection: React.FC = () => {
                     <motion.div
                       className="absolute inset-0"
                       style={{ 
-                        y: useTransform(smoothProgress, [0, 1], index % 2 === 0 ? ["-10%", "10%"] : ["10%", "-10%"]) 
+                        y: imageTransforms[index]
                       }}
                     >
                       <OptimizedImage
                         src={moment.image}
                         alt={moment.title}
                         className="w-full h-full object-cover scale-110 grayscale-[0.3] hover:grayscale-0 transition-all duration-1000"
-                        fill
                       />
                     </motion.div>
                     <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />

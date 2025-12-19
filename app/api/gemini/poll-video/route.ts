@@ -6,6 +6,10 @@ import path from 'path'
 const VERTEX_AI_API_KEY = process.env.VERTEX_AI_API_KEY || 'AQ.Ab8RN6I71MWAQLVPEgSRXJ-5Tlh3fgq-LCH7tEdhTkgPglj-rw'
 const GOOGLE_CLOUD_PROJECT_ID = process.env.GOOGLE_CLOUD_PROJECT_ID || '569295257974'
 const GOOGLE_CLOUD_REGION = process.env.GOOGLE_CLOUD_REGION || 'us-central1'
+// Gemini API key for fallback to Generative AI API
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || 'AIzaSyB5G4E3ziATLbXKZo8yWcbOwBjZC5itG6s'
+
+export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
   try {
@@ -177,7 +181,7 @@ export async function GET(request: NextRequest) {
           // Try without the models/ prefix, just the operations part
           const operationPart = operationId.split('/operations/')[1]
           const modelPart = operationId.split('/operations/')[0]
-          const altUrl = `https://generativelanguage.googleapis.com/v1beta/${modelPart}/operations/${operationPart}?key=${API_KEY}`
+          const altUrl = `https://generativelanguage.googleapis.com/v1beta/${modelPart}/operations/${operationPart}?key=${GEMINI_API_KEY}`
           console.log('Trying alternative polling URL:', altUrl.substring(0, 120) + '...')
           
           try {

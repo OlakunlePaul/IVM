@@ -13,8 +13,6 @@ const nextConfig = {
     ],
     formats: ['image/avif', 'image/webp'],
   },
-  // Enable static generation for better performance
-  output: 'standalone',
   // Optimize fonts
   optimizeFonts: true,
   // Compress output

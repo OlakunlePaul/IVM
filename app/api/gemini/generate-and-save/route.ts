@@ -12,6 +12,8 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY || 'AIzaSyB5G4E3ziATLbXKZo8yWc
 
 const VIDEO_PROMPT = 'A high-quality cinematic video of a sleek luxury SUV (Innoson G80) driving smoothly on a scenic highway during golden hour, showcasing the vehicle\'s premium design and performance. The car moves gracefully with smooth camera movement, highlighting the pride of African roads.'
 
+export const dynamic = 'force-dynamic'
+
 export async function POST(request: NextRequest) {
   try {
     // Create videos directory if it doesn't exist

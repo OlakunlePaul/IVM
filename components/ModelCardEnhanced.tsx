@@ -53,6 +53,7 @@ const ModelCardEnhanced = forwardRef<HTMLDivElement, ModelCardEnhancedProps>(({
 
   // Card lift effect
   const scale = useSpring(1, { stiffness: 300, damping: 30 })
+  const scaleTransform = useTransform(scale, [1, 1.03], [1, 1.05])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!internalRef.current || isExpanded) return
@@ -144,7 +145,7 @@ const ModelCardEnhanced = forwardRef<HTMLDivElement, ModelCardEnhancedProps>(({
       <div className="relative h-64 sm:h-72 md:h-80 overflow-hidden bg-black">
         <motion.div
           style={{
-            scale: isExpanded ? 1 : useTransform(scale, [1, 1.03], [1, 1.05]),
+            scale: isExpanded ? 1 : scaleTransform,
             transformStyle: 'preserve-3d',
           }}
           className="w-full h-full"

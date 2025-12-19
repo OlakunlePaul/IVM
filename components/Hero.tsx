@@ -68,6 +68,7 @@ const Hero: React.FC = () => {
   // Progress indicator for carousel
   const progress = useMotionValue(0)
   const smoothProgress = useSpring(progress, { stiffness: 100, damping: 30 })
+  const progressWidth = useTransform(smoothProgress, (value) => `${value * 100}%`)
 
   const scrollToModels = () => {
     if (typeof window === 'undefined') return
@@ -197,7 +198,7 @@ const Hero: React.FC = () => {
                   <motion.div 
                     className="absolute inset-y-0 left-0 bg-ivm-primary shadow-[0_0_8px_rgba(28,82,163,0.4)]"
                     style={{ 
-                      width: useTransform(smoothProgress, (value) => `${value * 100}%`)
+                      width: progressWidth
                     }}
                   />
                 </div>

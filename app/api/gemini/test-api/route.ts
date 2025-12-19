@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET() {
   try {
     const apiKey = process.env.GEMINI_API_KEY || 'AIzaSyB5G4E3ziATLbXKZo8yWcbOwBjZC5itG6s'

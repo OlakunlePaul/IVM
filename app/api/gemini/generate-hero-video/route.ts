@@ -12,6 +12,8 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY || 'AIzaSyB5G4E3ziATLbXKZo8yWc
 
 const HERO_VIDEO_PROMPT = 'A cinematic, high-quality video showcasing the Innoson Vehicle Manufacturing fleet of premium SUVs driving smoothly on a scenic African highway during golden hour. Multiple luxury vehicles (Innoson G80, G40, and G5T models) are visible, moving gracefully in formation. The scene captures the pride of African roads with smooth camera movements, showcasing the premium design, craftsmanship, and performance of the entire fleet. The golden hour lighting creates a warm, luxurious atmosphere, highlighting the vehicles\' sleek lines and premium finishes. The highway stretches into the distance, with African landscape visible in the background.'
 
+export const dynamic = 'force-dynamic'
+
 export async function POST(request: NextRequest) {
   try {
     // Create videos directory if it doesn't exist

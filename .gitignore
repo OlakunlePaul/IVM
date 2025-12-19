@@ -29,6 +29,14 @@ yarn-error.log*
 .env
 gemini-veo-config.json
 
+# documentation and test files
+GEMINI_VEO_SETUP.md
+VERTEX_AI_MIGRATION.md
+VERTEX_AI_MONITORING.md
+VERTEX_AI_SETUP_COMPLETE.md
+test-vertex-ai-api.js
+test-vertex-ai.js
+
 # vercel
 .vercel
 

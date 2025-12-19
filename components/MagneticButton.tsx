@@ -9,6 +9,7 @@ interface MagneticButtonProps {
   onClick?: () => void
   distance?: number
   strength?: number
+  type?: 'button' | 'submit' | 'reset'
 }
 
 const MagneticButton: React.FC<MagneticButtonProps> = ({ 
@@ -16,7 +17,8 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
   className = '', 
   onClick,
   distance = 100,
-  strength = 0.3
+  strength = 0.3,
+  type
 }) => {
   const buttonRef = useRef<HTMLDivElement>(null)
   const x = useMotionValue(0)
@@ -60,13 +62,24 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
       onMouseLeave={handleMouseLeave}
       className="relative"
     >
-      <motion.div
-        style={{ x: springX, y: springY }}
-        className={`${className} cursor-pointer`}
-        onClick={onClick}
-      >
-        {children}
-      </motion.div>
+      {type ? (
+        <motion.button
+          type={type}
+          style={{ x: springX, y: springY }}
+          className={`${className} cursor-pointer`}
+          onClick={onClick}
+        >
+          {children}
+        </motion.button>
+      ) : (
+        <motion.div
+          style={{ x: springX, y: springY }}
+          className={`${className} cursor-pointer`}
+          onClick={onClick}
+        >
+          {children}
+        </motion.div>
+      )}
     </div>
   )
 }

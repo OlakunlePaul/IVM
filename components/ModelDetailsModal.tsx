@@ -64,7 +64,6 @@ const ModelDetailsModal: React.FC<ModelDetailsModalProps> = ({ model, isOpen, on
                 src={model.image}
                 alt={model.name}
                 className="w-full h-full object-cover"
-                fill
               />
               <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent md:bg-gradient-to-r" />
               
