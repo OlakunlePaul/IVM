@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FEATURED_MODELS } from '@/lib/constants'
 import ModelCardEnhanced from './ModelCardEnhanced'
 import ModelDetailsModal from './ModelDetailsModal'
-import { ArrowUpDown, X } from 'lucide-react'
+import ModelComparisonModal from './ModelComparisonModal'
+import { ArrowUpDown, X, ArrowRight } from 'lucide-react'
 import { useAppContext } from '@/contexts/AppContext'
 
 type FilterType = 'All' | 'Luxury SUV' | 'Off-Road SUV' | 'Crossover SUV'
@@ -27,6 +28,7 @@ const FeaturedModels: React.FC = () => {
 
   const [selectedModelForModal, setSelectedModelForModal] = React.useState<typeof FEATURED_MODELS[0] | null>(null)
   const [isModalOpen, setIsModalOpen] = React.useState(false)
+  const [isCompareModalOpen, setIsCompareModalOpen] = React.useState(false)
 
   // Filter chips
   const filters: FilterType[] = ['All', 'Luxury SUV', 'Off-Road SUV', 'Crossover SUV']
@@ -193,17 +195,31 @@ const FeaturedModels: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
           >
-            <div className="flex items-center gap-4 text-white">
-              <div className="w-2 h-2 rounded-full bg-ivm-primary animate-pulse" />
-              <span className="font-bold text-sm tracking-widest uppercase">{compareList.length} model(s) selected for comparison</span>
+            <div className="flex items-center gap-6 text-white">
+              <div className="w-2.5 h-2.5 rounded-full bg-ivm-primary animate-pulse shadow-[0_0_10px_rgba(28,82,163,0.8)]" />
+              <div className="space-y-1">
+                <span className="font-black text-xs tracking-[0.3em] uppercase block">Comparison Ready</span>
+                <span className="text-[10px] text-white/40 tracking-widest uppercase">{compareList.length} model(s) selected for evaluation</span>
+              </div>
             </div>
-            <button
-              onClick={clearCompare}
-              className="text-white/60 hover:text-white transition-colors p-2"
-              aria-label="Clear comparison"
-            >
-              <X className="w-6 h-6" />
-            </button>
+            
+            <div className="flex items-center gap-6">
+              <button
+                onClick={() => setIsCompareModalOpen(true)}
+                className="px-8 py-3 bg-white text-black font-black text-[10px] uppercase tracking-[0.4em] rounded-full hover:bg-ivm-primary hover:text-white transition-all duration-700 flex items-center gap-3 group/comp"
+              >
+                Compare Now
+                <ArrowRight className="w-3.5 h-3.5 group-hover/comp:translate-x-1 transition-transform" />
+              </button>
+              
+              <button
+                onClick={clearCompare}
+                className="text-white/30 hover:text-white transition-colors p-2"
+                aria-label="Clear comparison"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
           </motion.div>
         )}
 
@@ -250,6 +266,12 @@ const FeaturedModels: React.FC = () => {
         model={selectedModelForModal} 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
+      />
+      <ModelComparisonModal
+        models={FEATURED_MODELS.filter(m => compareList.includes(m.id))}
+        isOpen={isCompareModalOpen}
+        onClose={() => setIsCompareModalOpen(false)}
+        onRemove={removeFromCompare}
       />
     </section>
   )

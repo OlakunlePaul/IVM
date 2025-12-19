@@ -35,6 +35,7 @@ const ModelCardEnhanced = forwardRef<HTMLDivElement, ModelCardEnhancedProps>(({
 
   const { savedModels, toggleSavedModel } = useAppContext()
   const isSaved = savedModels.includes(model.id)
+  const isComparing = useAppContext().compareList.includes(model.id)
   
   // Mouse position tracking for 3D tilt
   const x = useMotionValue(0)
@@ -187,20 +188,35 @@ const ModelCardEnhanced = forwardRef<HTMLDivElement, ModelCardEnhancedProps>(({
         </div>
 
         <div className="flex items-center justify-between pt-8 md:pt-10 border-t border-white/10">
-          <button
-            className="text-[11px] md:text-[12px] uppercase tracking-[0.5em] font-black text-white hover:text-ivm-primary transition-all duration-500 flex items-center gap-3 group/btn"
-            onClick={(e) => {
-              e.stopPropagation()
-              onToggleExpand?.()
-            }}
-          >
-            VIEW SPECS
-            <ArrowUpRight className="w-4 h-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-500" />
-          </button>
-          
-          <span className="text-[11px] md:text-[12px] font-medium text-white/40 tracking-tight italic">
-            IVM Certified
-          </span>
+          <div className="flex items-center gap-4">
+            <button
+              className="text-[11px] md:text-[12px] uppercase tracking-[0.5em] font-black text-white hover:text-ivm-primary transition-all duration-500 flex items-center gap-2 group/btn"
+              onClick={(e) => {
+                e.stopPropagation()
+                onToggleExpand?.()
+              }}
+            >
+              VIEW SPECS
+              <ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-500" />
+            </button>
+
+            <button
+              className={`text-[11px] md:text-[12px] uppercase tracking-[0.5em] font-black transition-all duration-500 flex items-center gap-2 group/compare ${
+                isComparing ? 'text-ivm-primary' : 'text-white/40 hover:text-white'
+              }`}
+              onClick={(e) => {
+                e.stopPropagation()
+                onCompare?.()
+              }}
+            >
+              <div className={`w-3.5 h-3.5 border rounded-sm flex items-center justify-center transition-colors ${
+                isComparing ? 'bg-ivm-primary border-ivm-primary' : 'border-white/20 group-hover/compare:border-white/40'
+              }`}>
+                {isComparing && <div className="w-1 h-1 bg-white rounded-full" />}
+              </div>
+              {isComparing ? 'SELECTED' : 'COMPARE'}
+            </button>
+          </div>
         </div>
       </div>
     </motion.div>

@@ -12,9 +12,9 @@ import MagneticButton from './MagneticButton'
 
 // Hero background images with model associations - Only 3 images
 const HERO_IMAGES = [
-  { image: FEATURED_MODELS[0].image, model: FEATURED_MODELS[0], badge: 'New Model' },
-  { image: FEATURED_MODELS[1].image, model: FEATURED_MODELS[1], badge: 'Popular' },
-  { image: FEATURED_MODELS[2].image, model: FEATURED_MODELS[2], badge: 'Limited Edition' },
+  { image: FEATURED_MODELS[0].image, model: FEATURED_MODELS[0] },
+  { image: FEATURED_MODELS[1].image, model: FEATURED_MODELS[1] },
+  { image: FEATURED_MODELS[2].image, model: FEATURED_MODELS[2] },
 ]
 
 const CAROUSEL_INTERVAL = 5000 // 5 seconds
@@ -185,18 +185,6 @@ const Hero: React.FC = () => {
                 <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-white tracking-wider uppercase">
                   {currentModel.name}
                 </h3>
-                <div className="h-px w-8 bg-ivm-primary/40" />
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={currentImage.badge}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 10 }}
-                    className="text-[10px] uppercase tracking-[0.4em] text-ivm-primary font-black bg-ivm-primary/5 px-2.5 py-0.5 rounded-full border border-ivm-primary/10 backdrop-blur-sm"
-                  >
-                    {currentImage.badge}
-                  </motion.span>
-                </AnimatePresence>
               </div>
               <p className="text-white/40 text-[10px] uppercase tracking-[0.4em] font-medium">
                 {currentModel.tagline}
