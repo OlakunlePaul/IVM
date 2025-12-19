@@ -4,6 +4,7 @@ import React, { useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FEATURED_MODELS } from '@/lib/constants'
 import ModelCardEnhanced from './ModelCardEnhanced'
+import ModelDetailsModal from './ModelDetailsModal'
 import { ArrowUpDown, X } from 'lucide-react'
 import { useAppContext } from '@/contexts/AppContext'
 
@@ -23,6 +24,9 @@ const FeaturedModels: React.FC = () => {
     removeFromCompare,
     clearCompare,
   } = useAppContext()
+
+  const [selectedModelForModal, setSelectedModelForModal] = React.useState<typeof FEATURED_MODELS[0] | null>(null)
+  const [isModalOpen, setIsModalOpen] = React.useState(false)
 
   // Filter chips
   const filters: FilterType[] = ['All', 'Luxury SUV', 'Off-Road SUV', 'Crossover SUV']
@@ -75,7 +79,11 @@ const FeaturedModels: React.FC = () => {
   }, [selectedFilter, sortBy])
 
   const handleToggleExpand = (modelId: string) => {
-    setExpandedCard(expandedCard === modelId ? null : modelId)
+    const model = FEATURED_MODELS.find(m => m.id === modelId)
+    if (model) {
+      setSelectedModelForModal(model)
+      setIsModalOpen(true)
+    }
   }
 
   const handleCompare = (modelId: string) => {
@@ -237,6 +245,12 @@ const FeaturedModels: React.FC = () => {
           </motion.div>
         )}
       </div>
+
+      <ModelDetailsModal 
+        model={selectedModelForModal} 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </section>
   )
 }

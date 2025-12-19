@@ -62,7 +62,7 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
     >
       <motion.div
         style={{ x: springX, y: springY }}
-        className={className}
+        className={`${className} cursor-pointer`}
         onClick={onClick}
       >
         {children}
